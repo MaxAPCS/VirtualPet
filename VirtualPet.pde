@@ -16,10 +16,12 @@ void draw() {
   rect(44, 44, dims[0]-88, topheight-8);
   fill(0xff009bdc);
   rect(44, 44, (dims[0]-88)/2, topheight-8);
-  textFont(loadFont("grotesque-becker.ttf"), 128);
-  text("HAL 9000", 44, 44);
+  fill(0xffffffff);
+  textFont(createFont("grotesque-becker.ttf", 1), 80);
+  textAlign(CENTER, TOP);
+  text("HAL 9000", (dims[0]-88)/2+55, 28);
   
-  fill(20, 20, 20);
+  fill(30, 30, 30);
   ellipse(dims[0]/2, dims[1]/2+50, dims[0]-70, dims[0]-70);
   
   int radius = dims[0]-80;
@@ -29,5 +31,6 @@ void draw() {
   }
   
   fill(40,40,40);
-  rect(20, dims[1]-180, dims[0]-40, 160, 0, 0, 5, 5); 
+  rect(20, dims[1]-180, dims[0]-40, 160, 0, 0, 5, 5);
+  
 }
