@@ -4,6 +4,7 @@ void setup() {
 }
 
 final int topheight = 80;
+int gradsize = 80;
 void draw() {
   background(20, 20, 20);
   noStroke();
@@ -15,15 +16,15 @@ void draw() {
   rect(44, 44, dims[0]-88, topheight-8);
   fill(0xff009bdc);
   rect(44, 44, (dims[0]-88)/2, topheight-8);
+  textFont(loadFont("grotesque-becker.ttf"), 128);
+  text("HAL 9000", 44, 44);
   
   fill(20, 20, 20);
   ellipse(dims[0]/2, dims[1]/2+50, dims[0]-70, dims[0]-70);
   
-  noFill();
-  strokeWeight(1);
   int radius = dims[0]-80;
   while (radius > 0) {
-    radius--;
+    fill(lerpColor(0x88ff1000, 0xff000000, (float)(--radius+gradsize)/(dims[0]-80)));
     ellipse(dims[0]/2, dims[1]/2+50, radius, radius);
   }
   
