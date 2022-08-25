@@ -1,6 +1,8 @@
 final int[] dims = new int[]{400, 900};
+PFont font;
 void setup() {
   size(400, 900);
+  font = createFont("grotesque-becker.ttf", 1);
 }
 
 final int topheight = 80;
@@ -17,7 +19,7 @@ void draw() {
   fill(0xff009bdc);
   rect(44, 44, (dims[0]-88)/2, topheight-8);
   fill(0xffffffff);
-  textFont(createFont("grotesque-becker.ttf", 1), 80);
+  textFont(font, 80);
   textAlign(CENTER, TOP);
   text("HAL 9000", (dims[0]-88)/2+55, 28);
   
@@ -33,4 +35,16 @@ void draw() {
   fill(40,40,40);
   rect(20, dims[1]-180, dims[0]-40, 160, 0, 0, 5, 5);
   
+  final int rad = 10;
+  final int stro = 3;
+  fill(10, 10, 10);
+  for (int y = dims[1]-180 + rad/2; dims[1]-180 <= y && y < dims[1]-20; y+=rad*1.5) {
+    for (int x = 20 + rad/2; 20 <= x && x < dims[0]-20; x+=rad*1.5) {
+      ellipse(x, y, rad, rad);
+    }
+    stroke(0xff111111);
+    strokeWeight(stro);
+    line(20+stro/2, y+rad*0.75, (dims[0]-20)-stro*0.75, y+rad/2);
+    noStroke();
+  }
 }
