@@ -1,11 +1,7 @@
-import java.util.Random;
-
 final int[] dims = new int[]{400, 900};
 PFont font;
-Random rd;
 void setup() {
   size(400, 900);
-  rd = new Random();
   font = createFont("grotesque-becker.ttf", 1);
 }
 
@@ -52,5 +48,5 @@ void draw() {
     noStroke();
   }
   
-  gradsize += (gradsize > 80 ? -1 : (gradsize < 20 ? 1 : (rd.nextBoolean() ? 1 : -1))) * Math.random()*10;
+  gradsize += (gradsize > 80 ? -1 : (gradsize < 20 ? 1 : (Math.random() > 0.5 ? 1 : -1))) * Math.random()*10;
 }
