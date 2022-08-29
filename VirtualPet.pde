@@ -1,8 +1,16 @@
+import processing.serial.*;
+import cc.arduino.*;
+
 final int[] dims = new int[]{400, 900};
+
+Arduino arduino;
 PFont font;
 void setup() {
   size(400, 900);
   font = createFont("grotesque-becker.ttf", 1);
+  System.out.println("Arduinos: "+String.join(",", Arduino.list()));
+  arduino = new Arduino(this, Arduino.list()[0], 57600); //change the [0] to a [1] or [2] etc. if your program doesn't work
+  arduino.pinMode(5, Arduino.OUTPUT);
 }
 
 final int topheight = 80;
@@ -48,7 +56,10 @@ void draw() {
     noStroke();
   }
   
-  gradsize += (gradsize > (dims[0]-80)/1.5 ? -1 : (gradsize < 20 ? 1 : (Math.random() > 0.5 ? 1 : -1))) * Math.random()*7;
+  gradsize = Math.round((arduino.analogRead(5)/500f)*200);
+  //gradsize += (gradsize > (dims[0]-80)/1.5 ? -1 : (gradsize < 30 ? 1 : (Math.random() > 0.5 ? 1 : -1))) * Math.random()*7;
+  //Arduino.SerialProxy.makeTone(5, 440, 100);
+  //arduino.digitalWrite(5, 69);
 }
 
 int blend( int i1, int i2, float ratio ) {

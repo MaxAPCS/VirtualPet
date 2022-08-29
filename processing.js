@@ -18189,6 +18189,9 @@ module.exports = function setupParser(Processing, options) {
       }
     };
 
+    Drawing2D.prototype.circle = function(x, y, radius) {
+    	this.ellipse(x, y, radius, radius);
+    }
     /**
      * Draws an ellipse (oval) in the display window. An ellipse with an equal <b>width</b> and <b>height</b> is a circle.
      * The first two parameters set the location, the third sets the width, and the fourth sets the height. The origin may be
