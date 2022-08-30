@@ -2,6 +2,7 @@ import processing.serial.*;
 import cc.arduino.*;
 
 final int[] dims = new int[]{400, 900};
+final int[] digitalports = new int[]{4, 7, 19, 21};
 
 Arduino arduino;
 PFont font;
@@ -10,11 +11,14 @@ void setup() {
   font = createFont("grotesque-becker.ttf", 1);
   System.out.println("Arduinos: "+String.join(",", Arduino.list()));
   arduino = new Arduino(this, Arduino.list()[0], 57600); //change the [0] to a [1] or [2] etc. if your program doesn't work
-  arduino.pinMode(5, Arduino.OUTPUT);
+  for (int port : digitalports)
+    arduino.pinMode(port, Arduino.INPUT);
+  arduino.pinMode(13, Arduino.OUTPUT);
 }
 
 final int topheight = 80;
 int gradsize = 10;
+int clr = 0xffff1111;
 void draw() {
   background(20, 20, 20);
   noStroke();
@@ -36,7 +40,7 @@ void draw() {
   
   int radius = dims[0]-80;
   while (radius > 0) {
-    fill(blend(0xffff1111, 0xff000000, (float)(--radius + gradsize)/(dims[0]-80)));
+    fill(blend(clr, 0xff000000, (float)(--radius + gradsize)/(dims[0]-80)));
     ellipse(dims[0]/2, dims[1]/2+50, radius, radius);
   }
   
@@ -56,10 +60,14 @@ void draw() {
     noStroke();
   }
   
-  gradsize = Math.round((arduino.analogRead(5)/500f)*200);
-  //gradsize += (gradsize > (dims[0]-80)/1.5 ? -1 : (gradsize < 30 ? 1 : (Math.random() > 0.5 ? 1 : -1))) * Math.random()*7;
-  //Arduino.SerialProxy.makeTone(5, 440, 100);
-  //arduino.digitalWrite(5, 69);
+  gradsize = Math.round((arduino.analogRead(5)/500f)*200); // gradsize += (gradsize > (dims[0]-80)/1.5 ? -1 : (gradsize < 30 ? 1 : (Math.random() > 0.5 ? 1 : -1))) * Math.random()*7;
+  clr = arduino.digitalRead(21) == 1 ? 0xff0000ff : 0xffff0000;
+  if (gradsize > 150) arduino.digitalWrite(13, Arduino.HIGH);
+  
+  for (int port : digitalports)
+    System.out.println("Digital Port "+(port < 10 ? "0"+port : port)+": "+arduino.digitalRead(port));
+  for (int port : new int[]{0, 4, 5})
+    System.out.println("Analog Port "+port+": "+arduino.analogRead(port));
 }
 
 int blend( int i1, int i2, float ratio ) {
