@@ -67,7 +67,7 @@ void draw() {
     noStroke();
   }
   // Animation & Interface
-  gradsize = Math.round((arduino.analogRead(5)/500f)*200); // gradsize += (gradsize > (dims[0]-80)/1.5 ? -1 : (gradsize < 30 ? 1 : (Math.random() > 0.5 ? 1 : -1))) * Math.random()*7;
+  gradsize = Math.round((arduino.analogRead(5)/500f)*200);
   //progress = arduino.digitalRead(21) == 1 ? 1.0 : 0.0;
   if (arduino.digitalRead(4) == 1 && arduino.digitalRead(19) == 1) {
     colorprog = 0;
